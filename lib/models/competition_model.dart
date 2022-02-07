@@ -10,12 +10,7 @@ class Matches {
   Competition competition;
   List<Match> matches;
 
-  Matches(
-      {
-      this.count,
-      this.competition,
-      this.filters,
-      this.matches});
+  Matches({this.count, this.competition, this.filters, this.matches});
 
   factory Matches.fromJson(Map<String, dynamic> json) {
     return Matches(
@@ -58,14 +53,14 @@ class Team {
 class Competition {
   Competition({
     this.id,
-    // this.area,
+    this.area,
     this.name,
     // this.code,
     // this.lastUpdated,
   });
 
   int id;
-  // Area area;
+  Area area;
   String name;
   // String code;
 
@@ -73,7 +68,7 @@ class Competition {
 
   factory Competition.fromJson(Map<String, dynamic> json) => Competition(
         id: json["id"],
-        // area: Area.fromJson(json["area"]),
+        area: Area.fromJson(json["area"]),
         name: json["name"],
         // code: json["code"] == null ? null : json["code"],
         // lastUpdated: DateTime.parse(json["lastUpdated"]),
@@ -92,27 +87,27 @@ class Area {
   Area({
     this.id,
     this.name,
-    this.countryCode,
-    this.ensignUrl,
+    // this.countryCode,
+    // this.ensignUrl,
   });
 
   int id;
   String name;
-  String countryCode;
-  String ensignUrl;
+  // String countryCode;
+  // String ensignUrl;
 
   factory Area.fromJson(Map<String, dynamic> json) => Area(
         id: json["id"],
         name: json["name"],
-        countryCode: json["countryCode"],
-        ensignUrl: json["ensignUrl"] == null ? null : json["ensignUrl"],
+        // countryCode: json["countryCode"],
+        // ensignUrl: json["ensignUrl"] == null ? null : json["ensignUrl"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "countryCode": countryCode,
-        "ensignUrl": ensignUrl == null ? null : ensignUrl,
+        // "countryCode": countryCode,
+        // "ensignUrl": ensignUrl == null ? null : ensignUrl,
       };
 }
 

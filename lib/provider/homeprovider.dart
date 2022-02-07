@@ -12,7 +12,7 @@ import 'dart:convert' as convert;
 
 class HomeProvider with ChangeNotifier {
   HomeProvider() {
-    getcompetitions();
+    getcompetition();
   }
   Football db = Football();
   static String api =
@@ -27,20 +27,51 @@ class HomeProvider with ChangeNotifier {
 
   // http://api.football-data.org/v2/competitions/2003/matches?matchday=1
 
-  Future<List<Match>> getcompetitions() async {
-    var url = Uri.http('api.football-data.org', 'v2/competitions/CL/matches',
-        {"matchday": "1"});
+  Future<List<Match>> getcompetitions(int id) async {
+    // var url = Uri.http('api.football-data.org', 'v2/competitions/CL/matches',
+    //     {"matchday": "1"});
+
+    var url = Uri.http(
+      'api.football-data.org', 'v2/competitions/$id/matches',
+      // {"matchday": "1"}
+    );
 
     final response = await get(url, headers: response_headers);
 
     if (response.statusCode == 200) {
       var competitonss = jsonDecode(response.body);
+      print(" Api Service 1 : $competitonss");
 
       List<dynamic> matchesList = competitonss['matches'];
       // print(" Api Service 1 : $matchesList");
 
       List<Match> competiton =
           matchesList.map((dynamic item) => Match.fromJson(item)).toList();
+
+      return competiton;
+    } else {
+      print(" no data");
+    }
+  }
+
+  Future<List<Competition>> getcompetition() async {
+    // http://api.football-data.org/v2/competitions/
+    var url = Uri.http(
+      'api.football-data.org',
+      'v2/competitions/',
+    );
+
+    final response = await get(url, headers: response_headers);
+
+    if (response.statusCode == 200) {
+      var competitonss = jsonDecode(response.body);
+
+      List<dynamic> matchesList = competitonss['competitions'];
+      // print(" Api Service 1 : $matchesList");
+
+      List<Competition> competiton = matchesList
+          .map((dynamic item) => Competition.fromJson(item))
+          .toList();
 
       return competiton;
     } else {
